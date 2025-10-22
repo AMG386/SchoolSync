@@ -47,7 +47,11 @@ License: For each use you must have a valid license purchased only from above li
     
     <link rel="stylesheet" href="https://cdn.datatables.net/1.11.3/css/dataTables.bootstrap5.min.css"/>
     <link rel="stylesheet" href="https://cdn.datatables.net/1.13.6/css/jquery.dataTables.min.css">
-<link rel="stylesheet" href="https://cdn.datatables.net/responsive/2.5.0/css/responsive.dataTables.min.css">
+    <link rel="stylesheet" href="https://cdn.datatables.net/responsive/2.5.0/css/responsive.dataTables.min.css">
+    
+    <!--begin::Custom Enhancements-->
+    <link href="{{ asset('assets/css/custom-enhancements.css') }}" rel="stylesheet" type="text/css" />
+    <!--end::Custom Enhancements-->
 
     <!--end::Global Stylesheets Bundle-->
     <script>
@@ -207,9 +211,12 @@ License: For each use you must have a valid license purchased only from above li
     <!--end::Custom Javascript-->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/bootbox.js/6.0.0/bootbox.min.js"></script>
    
-
-<script src="https://cdn.datatables.net/1.13.6/js/jquery.dataTables.min.js"></script>
-<script src="https://cdn.datatables.net/responsive/2.5.0/js/dataTables.responsive.min.js"></script>
+    <script src="https://cdn.datatables.net/1.13.6/js/jquery.dataTables.min.js"></script>
+    <script src="https://cdn.datatables.net/responsive/2.5.0/js/dataTables.responsive.min.js"></script>
+    
+    <!--begin::SchoolSync Custom Enhancements-->
+    <script src="{{ asset('js/schoolsync-enhancements.js') }}"></script>
+    <!--end::SchoolSync Custom Enhancements-->
 
     @include('layouts.modal.diti-modal-script')
     <script src="{{ asset('js/submit.js') }}"></script>

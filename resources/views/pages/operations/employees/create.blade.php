@@ -1,45 +1,77 @@
+<!--begin::Modal header-->
 <div class="modal-header">
-    <h5 class="modal-title" id="patientModalLabel">New Employee</h5>
-    <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+    <!--begin::Modal title-->
+    <h2 class="fw-bold">Add New Employee</h2>
+    <!--end::Modal title-->
+    <!--begin::Close-->
+    <div class="btn btn-icon btn-sm btn-active-icon-primary" data-bs-dismiss="modal">
+        <i class="ki-outline ki-cross fs-1"></i>
+    </div>
+    <!--end::Close-->
 </div>
+<!--end::Modal header-->
 
-<div class="modal-body">
-    <form id="fmCreate" >
-        @csrf
-        <input type="hidden" id="submiturl" value="employees">
-        @if (!empty($redirect))
-            <input type="hidden" id="redirecturl" name="redirecturl" value="{{ $redirect }}">
-        @endif
+<!--begin::Modal body-->
+<div class="modal-body py-10 px-lg-17">
+    <!--begin::Scroll-->
+    <div class="scroll-y me-n7 pe-7" data-kt-scroll="true" data-kt-scroll-activate="{default: false, lg: true}" data-kt-scroll-max-height="auto" data-kt-scroll-dependencies="#kt_modal_add_employee_header" data-kt-scroll-wrappers="#kt_modal_add_employee_scroll" data-kt-scroll-offset="300px">
+        <!--begin::Form-->
+        <form id="fmCreate" class="form">
+            @csrf
+            <input type="hidden" id="submiturl" value="employees">
+            @if (!empty($redirect))
+                <input type="hidden" id="redirecturl" name="redirecturl" value="{{ $redirect }}">
+            @endif
 
-        <ul class="nav nav-tabs mb-3" id="employeeTab" role="tablist">
-            <li class="nav-item" role="presentation">
-                <button class="nav-link active" id="basic-tab" data-bs-toggle="tab" data-bs-target="#basic"
-                    type="button" role="tab">Basic Info</button>
-            </li>
-            <li class="nav-item" role="presentation">
-                <button class="nav-link" id="contact-tab" data-bs-toggle="tab" data-bs-target="#contact" type="button"
-                    role="tab">Contact</button>
-            </li>
-            <li class="nav-item" role="presentation">
-                <button class="nav-link" id="job-tab" data-bs-toggle="tab" data-bs-target="#job" type="button"
-                    role="tab">Job Details</button>
-            </li>
-            <li class="nav-item" role="presentation">
-                <button class="nav-link" id="official-tab" data-bs-toggle="tab" data-bs-target="#official"
-                    type="button" role="tab">Official Details</button>
-            </li>
-            <li class="nav-item" role="presentation">
-                <button class="nav-link" id="salary-tab" data-bs-toggle="tab" data-bs-target="#salary" type="button"
-                    role="tab">Salary & Payroll</button>
-            </li>
-            <li class="nav-item" role="presentation">
-                <button class="nav-link" id="identification-tab" data-bs-toggle="tab" data-bs-target="#identification"
-                    type="button" role="tab">Identification</button>
-            </li>
-            <li class="nav-item" role="presentation">
-                <button class="nav-link" id="history-tab" data-bs-toggle="tab" data-bs-target="#history" type="button"
-                    role="tab">Employment History</button>
-            </li>
+            <!--begin::Tabs-->
+            <ul class="nav nav-pills nav-pills-custom mb-8" role="tablist">
+                <li class="nav-item mb-3 me-3 me-lg-6" role="presentation">
+                    <a class="nav-link btn btn-outline btn-flex btn-color-muted btn-active-color-primary flex-column overflow-hidden w-80px h-85px pt-5 pb-2 active" id="basic-tab" data-bs-toggle="pill" href="#basic" aria-selected="true" role="tab">
+                        <div class="nav-icon mb-3">
+                            <i class="ki-outline ki-abstract-26 fs-1"></i>
+                        </div>
+                        <span class="nav-text text-gray-800 fw-bold fs-6 lh-1">Basic</span>
+                        <span class="bullet-custom position-absolute bottom-0 w-100 h-4px bg-primary"></span>
+                    </a>
+                </li>
+                <li class="nav-item mb-3 me-3 me-lg-6" role="presentation">
+                    <a class="nav-link btn btn-outline btn-flex btn-color-muted btn-active-color-primary flex-column overflow-hidden w-80px h-85px pt-5 pb-2" id="contact-tab" data-bs-toggle="pill" href="#contact" aria-selected="false" role="tab" tabindex="-1">
+                        <div class="nav-icon mb-3">
+                            <i class="ki-outline ki-address-book fs-1"></i>
+                        </div>
+                        <span class="nav-text text-gray-800 fw-bold fs-6 lh-1">Contact</span>
+                        <span class="bullet-custom position-absolute bottom-0 w-100 h-4px bg-primary"></span>
+                    </a>
+                </li>
+                <li class="nav-item mb-3 me-3 me-lg-6" role="presentation">
+                    <a class="nav-link btn btn-outline btn-flex btn-color-muted btn-active-color-primary flex-column overflow-hidden w-80px h-85px pt-5 pb-2" id="job-tab" data-bs-toggle="pill" href="#job" aria-selected="false" role="tab" tabindex="-1">
+                        <div class="nav-icon mb-3">
+                            <i class="ki-outline ki-profile-circle fs-1"></i>
+                        </div>
+                        <span class="nav-text text-gray-800 fw-bold fs-6 lh-1">Job</span>
+                        <span class="bullet-custom position-absolute bottom-0 w-100 h-4px bg-primary"></span>
+                    </a>
+                </li>
+                <li class="nav-item mb-3 me-3 me-lg-6" role="presentation">
+                    <a class="nav-link btn btn-outline btn-flex btn-color-muted btn-active-color-primary flex-column overflow-hidden w-80px h-85px pt-5 pb-2" id="salary-tab" data-bs-toggle="pill" href="#salary" aria-selected="false" role="tab" tabindex="-1">
+                        <div class="nav-icon mb-3">
+                            <i class="ki-outline ki-dollar fs-1"></i>
+                        </div>
+                        <span class="nav-text text-gray-800 fw-bold fs-6 lh-1">Salary</span>
+                        <span class="bullet-custom position-absolute bottom-0 w-100 h-4px bg-primary"></span>
+                    </a>
+                </li>
+                <li class="nav-item mb-3" role="presentation">
+                    <a class="nav-link btn btn-outline btn-flex btn-color-muted btn-active-color-primary flex-column overflow-hidden w-80px h-85px pt-5 pb-2" id="other-tab" data-bs-toggle="pill" href="#other" aria-selected="false" role="tab" tabindex="-1">
+                        <div class="nav-icon mb-3">
+                            <i class="ki-outline ki-document fs-1"></i>
+                        </div>
+                        <span class="nav-text text-gray-800 fw-bold fs-6 lh-1">Other</span>
+                        <span class="bullet-custom position-absolute bottom-0 w-100 h-4px bg-primary"></span>
+                    </a>
+                </li>
+            </ul>
+            <!--end::Tabs-->
             <li class="nav-item" role="presentation">
                 <button class="nav-link" id="other-tab" data-bs-toggle="tab" data-bs-target="#other" type="button"
                     role="tab">Other Info</button>
