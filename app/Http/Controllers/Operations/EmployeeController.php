@@ -4,7 +4,9 @@ namespace App\Http\Controllers\Operations;
 
 use App\Http\Controllers\Controller;
 use App\Models\Employee;
+use App\Models\Subject;
 use App\Traits\EmployeeTrait;
+use App\Helpers\Dropdown;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Response;
 
@@ -24,8 +26,10 @@ class EmployeeController extends Controller
     public function create(Request $request)
     {
         $this->pageSummaryCreate();
+        $subjects = Dropdown::subjects();
         return view('pages.operations.employees.create', [
-            'redirect' => $request->redirect ?? ''
+            'redirect' => $request->redirect ?? '',
+            'subjects' => $subjects,
         ])->render();
     }
 
@@ -59,6 +63,7 @@ class EmployeeController extends Controller
             // Job Details
             'department' => 'nullable|string|max:100',
             'designation' => 'nullable|string|max:100',
+            'subjects_assigned' => 'nullable|array',
             'employee_type' => 'nullable|string|max:50',
             'joining_date' => 'nullable|date',
             'probation_end_date' => 'nullable|date',
@@ -120,18 +125,21 @@ class EmployeeController extends Controller
     public function show($id)
     {
         $employee = Employee::findOrFail($id);
+        $subjectIds = $employee->subjects_assigned ?? [];
+         $subjects = Subject::whereIn('id', $subjectIds)->get();
         $this->pageSummaryShow($employee);
-        return view('pages.operations.employees.show', compact('employee'));
+        return view('pages.operations.employees.show', compact('employee','subjects'));
     }
 
     // Show edit form
     public function edit(Request $request, $id)
-    {
+    {   $subjects = Dropdown::subjects();
         $employee = Employee::findOrFail($id);
         $this->pageSummaryEdit($employee);
         return view('pages.operations.employees.edit', [
             'employee' => $employee,
             'redirect' => $request->redirect ?? '',
+            'subjects' => $subjects,
         ])->render();
     }
 
@@ -167,6 +175,7 @@ class EmployeeController extends Controller
             // Job Details
             'department' => 'nullable|string|max:100',
             'designation' => 'nullable|string|max:100',
+            'subjects_assigned' => 'nullable|array',
             'employee_type' => 'nullable|string|max:50',
             'joining_date' => 'nullable|date',
             'probation_end_date' => 'nullable|date',

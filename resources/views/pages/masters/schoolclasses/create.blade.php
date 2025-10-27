@@ -13,10 +13,10 @@
 
 
                 <div class="row g-3">
-                    @include('layouts.common._col-input', [
-                        'type' => 'text',
+                    @include('layouts.common._col-select', [
                         'name' => 'class_name',
                         'label' => 'Class Name',
+                        'elements' => $class,
                         'class' => 'col-md-6',
                     ])
                     @include('layouts.common._col-input', [
@@ -25,12 +25,17 @@
                         'label' => 'Division',
                         'class' => 'col-md-6',
                     ])
-                    @include('layouts.common._col-input', [
-                        'type' => 'text',
-                        'name' => 'class_remarks',
-                        'label' => 'Remarks',
+                    @include('layouts.common._col-select', [
+                        'name' => 'class_teacher',
+                        'label' => 'Class Teacher',
                         'class' => 'col-md-12',
-                        'value' => old('class_remarks'),
+                        'elements' => $teachers,
+                    ])
+                    @include('layouts.common._col-select', [
+                        'name' => 'accademic_year',
+                        'label' => 'Accademic Year',
+                        'class' => 'col-md-12',
+                        'elements' => config('constants.accademic_years'),
                     ])
                 </div>
            

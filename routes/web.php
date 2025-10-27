@@ -22,11 +22,15 @@ Route::middleware('auth')->group(function () {
         'guardians'        => 'App\Http\Controllers\Operations\GuardianController',
         'schoolclasses' => 'App\Http\Controllers\Masters\SchoolClassController',
         'subjects' => 'App\Http\Controllers\Masters\SubjectController',
+        'classsubjects' => 'App\Http\Controllers\Masters\ClassSubjectController',
+        'standards' => 'App\Http\Controllers\Masters\StandardController',
         'calander' => 'App\Http\Controllers\Settings\CalanderController',
         'users' => 'App\Http\Controllers\Settings\UserController',
         'usergroups' => 'App\Http\Controllers\Settings\UserGroupController',
         
     ]);
+    
+Route::get('classsubjects/create/{schoolclass_id}', ['App\Http\Controllers\Masters\ClassSubjectController'::class, 'create'])->name('classsubjects.create');
 
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');

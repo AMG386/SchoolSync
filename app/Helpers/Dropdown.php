@@ -5,7 +5,8 @@ use App\Models\Customer;
 use App\Models\Employee;
 use App\Models\User;
 use App\Models\Student;
-
+use App\Models\Standard;
+use App\Models\Subject;
 
 
 class Dropdown
@@ -42,5 +43,20 @@ class Dropdown
     {
         return  Student::orderBy('first_name', 'ASC')->get()
         ->pluck('first_name', 'id');
+    }
+    public static function teachers()
+    {
+        return  Employee::where('designation', '1')->orderBy('first_name', 'ASC')->get()
+        ->pluck('first_name', 'id');
+    }
+    public static function schoolClasses()
+    {
+        return  Standard::orderBy('standard', 'ASC')->get()
+        ->pluck('standard', 'id');
+    }
+    public static function subjects()
+    {
+        return  Subject::orderBy('subject_name', 'ASC')->get()
+        ->pluck('subject_name', 'id');
     }
 }

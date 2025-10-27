@@ -6,6 +6,10 @@ use Illuminate\Database\Eloquent\Model;
 
 class Employee extends Model
 {
+    protected $casts = [
+    'subjects_assigned' => 'array',
+];
+
     protected $fillable = [
         // Basic Information
         'employee_id',
@@ -33,6 +37,7 @@ class Employee extends Model
         // Job Details
         'department',
         'designation',
+        'subjects_assigned',
         'employee_type',
         'joining_date',
         'probation_end_date',
@@ -91,4 +96,13 @@ class Employee extends Model
     {
         return $this->first_name . ' ' . $this->last_name;
     }
+    public function departmentRelation()
+    {
+        return $this->belongsTo(Department::class, 'department', 'id');
+    }
+    public function subjects()
+{
+    return $this->belongsTo(Subject::class, 'subjects_assigned', 'id');
+}
+
 }

@@ -3,24 +3,20 @@
 @section('content')
 <div id="kt_app_content" class="app-content flex-column-fluid">
     <div id="kt_app_content_container" class="app-container container-xxl">
-        <div id="schoolclass_show">
-            <div id="schoolclass_show-content">
+        <div id="standard_show">
+            <div id="standard_show-content">
 
                 <div class="card shadow-sm mb-5">
                     <div class="card-body">
                         <div class="d-flex align-items-center justify-content-between mb-4">
                             <div>
                                 <h3 class="fw-bold text-gray-900 mb-1">
-                                   Class: {{ $schoolclass->classname->standard ?? '-'  }} {{ $schoolclass->division ?? '-' }} ({{ $schoolclass->accademic_year ?? '-' }})
+                                    Standard: {{ $standard->standard ?? '-' }}
                                 </h3>
-                                <div class="text-muted">
-                                    Class teacher: {{ $schoolclass->classTeacherRelation ? $schoolclass->classTeacherRelation->full_name : '-' }}
-                                </div>
                             </div>
-                        </div>                       
+                        </div>
                     </div>
                 </div>
-                @include('pages.masters.classsubjects.index')
 
             </div>
         </div>

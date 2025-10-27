@@ -2,26 +2,26 @@
 
 namespace App\Traits;
 
-trait SchoolClassTrait
+trait StandardTrait
 {
     public function pageSummaryIndex()
     {
         \View::share('page_summary', [
 
-            'title' => 'Classes',
+            'title' => 'Standards',
             'breadcrumb' => [
                 0 => [
-                    'title' => 'Classes'
+                    'title' => 'Standards'
                 ],
             ],
             'buttons' => [
                 0 => [
-                    'title' => 'New Class',
-                    'url' => 'schoolclasses/create',
+                    'title' => 'New Standard',
+                    'url' => 'standards/create',
                     'icon' => 'plus',
                     'bg' => 'primary',
                     'modal' => true,
-                    'redirect' => 'schoolclasses',
+                    'redirect' => 'standards',
                 ]
             ],
         ]);
@@ -31,14 +31,14 @@ trait SchoolClassTrait
     {
         \View::share('page_summary', [
 
-            'title' => 'Create New Class',
+            'title' => 'Create New Standard',
             'breadcrumb' => [
                 0 => [
-                    'title' => 'Classes',
-                    'page' => 'schoolclasses'
+                    'title' => 'Standards',
+                    'page' => 'standards'
                 ],
                 1 => [
-                    'title' => 'Create New Class',
+                    'title' => 'Create New Standard',
                 ],
             ],
 
@@ -49,31 +49,31 @@ trait SchoolClassTrait
     {
         \View::share('page_summary', [
 
-            'title' => 'Class Details',
+            'title' => 'Standard Details',
             'breadcrumb' => [
                 0 => [
-                    'title' => 'Classes',
-                    'page' => 'schoolclasses'
+                    'title' => 'Standards',
+                    'page' => 'standards'
                 ],
                 1 => [
-                    'title' => $element->class_name ?? '---',
+                    'title' => $element->standard ?? '---',
                 ],
             ],
             'buttons' => [
                 0 => [
                     'title' => 'Edit',
-                    'url' => 'schoolclasses/' . $element->id . '/edit',
+                    'url' => 'standards/' . $element->id . '/edit',
                     'icon' => 'edit',
                     'bg' => 'secondary',
                     'modal' => true,
-                    'redirect' => 'schoolclasses/' . $element->id,
+                    'redirect' => 'standards/' . $element->id,
                 ]
             ],
             // 'delete-button' => [
-            //     'url' => 'schoolclasses/' . $element->id,
+            //     'url' => 'standards/' . $element->id,
             // ],
             'back-button' => [
-                'url' => 'schoolclasses'
+                'url' => 'standards'
             ],
 
         ]);
@@ -83,15 +83,15 @@ trait SchoolClassTrait
     {
         \View::share('page_summary', [
 
-            'title' => 'Edit Class',
+            'title' => 'Edit Standard',
             'breadcrumb' => [
                 0 => [
-                    'title' => 'Classes',
-                    'page' => 'schoolclasses'
+                    'title' => 'Standards',
+                    'page' => 'standards'
                 ],
                 1 => [
-                    'title' => $element->class_name,
-                    'page' => 'schoolclasses/' . $element->id
+                    'title' => $element->standard,
+                    'page' => 'standards/' . $element->id
                 ],
                 2 => [
                     'title' => 'Edit',

@@ -159,6 +159,15 @@
                                         <!--begin:Menu item-->
                                         <div class="menu-item p-0 m-0">
                                             <!--begin:Menu link-->
+                                            <a class="menu-link" href="{{route('standards.index')}}">
+                                                <span class="menu-bullet">
+                                                    <span
+                                                        class="bullet bullet-dot bg-gray-300i h-6px w-6px"></span>
+                                                </span>
+                                                <span class="menu-title">Standards</span>
+                                            </a>
+                                            <!--end:Menu link-->
+                                            
                                             <a class="menu-link" href="{{route('schoolclasses.index')}}">
                                                 <span class="menu-bullet">
                                                     <span

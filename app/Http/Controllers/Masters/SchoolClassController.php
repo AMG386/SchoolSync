@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Models\SchoolClass;
 use App\Traits\SchoolClassTrait;
 use Illuminate\Http\Request;
+use App\Helpers\Dropdown;
 use Illuminate\Support\Facades\Response;
 
 class SchoolClassController extends Controller
@@ -14,28 +15,33 @@ class SchoolClassController extends Controller
     public function index(Request $request)
     {
         $query = SchoolClass::query();
+      
 
         if ($request->filled('search')) {
             $search = $request->search;
             $query->where(function ($q) use ($search) {
                 $q->where('class_name', 'like', "%{$search}%")
                   ->orWhere('division', 'like', "%{$search}%")
-                  ->orWhere('class_remarks', 'like', "%{$search}%");
+                  ->orWhere('class_teacher', 'like', "%{$search}%");
             });
         }
 
         $schoolclasses = $query->latest()->paginate(15)->withQueryString();
 
         $this->pageSummaryIndex();
-        return view('pages.masters.schoolclasses.index', compact('schoolclasses'));
+        return view('pages.masters.schoolclasses.index', compact('schoolclasses',));
     }
 
     // Create view
     public function create(Request $request)
     {
         $this->pageSummaryCreate();
+        $teachers = Dropdown::teachers();
+        $class=Dropdown::schoolClasses();
         return view('pages.masters.schoolclasses.create', [
             'redirect' => $request->redirect ?? ''
+            ,'teachers' => $teachers,
+            'class' => $class,
         ])->render();
     }
 
@@ -44,8 +50,9 @@ class SchoolClassController extends Controller
     {
         $validated = $request->validate([
             'class_name' => 'required|string|max:255',
-            'division' => 'nullable|string|max:100',
-            'class_remarks' => 'nullable|string',
+            'division' => 'required|string|max:100',
+            'class_teacher' => 'required|string',
+            'accademic_year' => 'required|string',
         ]);
 
         $schoolclass = SchoolClass::create($validated);
@@ -59,22 +66,35 @@ class SchoolClassController extends Controller
         ], 201);
     }
 
-    // Show single record
     public function show($id)
-    {
-        $schoolclass = SchoolClass::findOrFail($id);
-        $this->pageSummaryShow($schoolclass);
-        return view('pages.masters.schoolclasses.show', compact('schoolclass'));
-    }
+{
+    
+    $schoolclass = SchoolClass::with([
+        'classSubjects.subject',
+        'classSubjects.teacher',
+        'classTeacherRelation'
+    ])->findOrFail($id);
+
+    $classSubjects = $schoolclass->classSubjects;
+
+    $this->pageSummaryShow($schoolclass);
+
+    return view('pages.masters.schoolclasses.show', compact('schoolclass', 'classSubjects'));
+}
+
 
     // Edit view
     public function edit(Request $request, $id)
     {
         $schoolclass = SchoolClass::findOrFail($id);
         $this->pageSummaryEdit($schoolclass);
+         $teachers = Dropdown::teachers();
+         $class=Dropdown::schoolClasses();
 
         return view('pages.masters.schoolclasses.edit', [
             'schoolclass' => $schoolclass,
+            'teachers' => $teachers,
+            'class' => $class,
             'redirect' => $request->redirect ?? '',
         ])->render();
     }
@@ -86,8 +106,9 @@ class SchoolClassController extends Controller
 
         $validated = $request->validate([
             'class_name' => 'sometimes|required|string|max:255',
-            'division' => 'nullable|string|max:100',
-            'class_remarks' => 'nullable|string',
+            'division' => 'required|string|max:100',
+            'class_teacher' => 'required|string',
+            'accademic_year' => 'required|string',
         ]);
 
         $schoolclass->update($validated);
