@@ -506,11 +506,14 @@
                                         <!--end::Info-->
                                         <!--begin::Actions-->
                                         <div class="mt-4">
-                                            <a href="#" class="btn btn-sm btn-light-primary btnAction" data-url="students/{{ $student->id }}/edit" data-redirect="students">
-                                                <i class="ki-duotone ki-plus fs-4 me-1">
-                                                    <span class="path1"></span>
-                                                    <span class="path2"></span>
-                                                </i>Upload
+                                            <a href="#" class="btn btn-sm btn-flex btn-primary btnAction" data-url="students/{{ $student->id }}/edit" data-redirect="students" title="Edit Student" data-bs-toggle="tooltip">
+                                                <span class="svg-icon svg-icon-2 me-2">
+                                                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none">
+                                                        <path opacity="0.3" d="M21 7.2L19.8 6L17.8 8L19 9.2L21 7.2Z" fill="currentColor"/>
+                                                        <path d="M17.8 8L6 19.8V22H8.2L19.8 10.2L17.8 8Z" fill="currentColor"/>
+                                                    </svg>
+                                                </span>
+                                                Edit
                                             </a>
                                         </div>
                                         <!--end::Actions-->
@@ -546,6 +549,17 @@
         <!--end::Layout-->
     </div>
 </div>
+    <!--begin::Modals-->
+    <div class="modal fade" id="form-modal" tabindex="-1" aria-labelledby="formModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-xl modal-dialog-centered">
+            <div class="modal-content">
+                <div id="fmodal-content">
+                    <!-- AJAX content will be loaded here -->
+                </div>
+            </div>
+        </div>
+    </div>
+    <!--end::Modals-->
 @endsection
 
 @section('scripts')
@@ -558,52 +572,4 @@
 <script src="{{ asset('js/common.js') }}"></script>
 <script src="{{ asset('js/delete.js') }}"></script>
 
-<script>
-"use strict";
-
-// Initialize page functionality
-document.addEventListener('DOMContentLoaded', function() {
-    // Initialize tooltips
-    var tooltipTriggerList = [].slice.call(document.querySelectorAll('[data-bs-toggle="tooltip"]'));
-    var tooltipList = tooltipTriggerList.map(function (tooltipTriggerEl) {
-        return new bootstrap.Tooltip(tooltipTriggerEl);
-    });
-
-    // Initialize collapsible elements
-    var collapseElementList = [].slice.call(document.querySelectorAll('.collapsible'));
-    var collapseList = collapseElementList.map(function (collapseEl) {
-        return new bootstrap.Collapse(collapseEl, {
-            toggle: false
-        });
-    });
-
-    // Handle edit button functionality
-    document.querySelectorAll('.btnAction').forEach(function(button) {
-        button.addEventListener('click', function(e) {
-            e.preventDefault();
-            
-            var url = this.getAttribute('data-url');
-            var redirect = this.getAttribute('data-redirect');
-            
-            // You can implement modal opening or redirect logic here
-            if (url) {
-                // For now, just redirect to edit page
-                window.location.href = url;
-            }
-        });
-    });
-
-    // Add hover effects for document cards
-    document.querySelectorAll('.border-hover').forEach(function(card) {
-        card.addEventListener('mouseenter', function() {
-            this.classList.add('border-primary');
-        });
-        
-        card.addEventListener('mouseleave', function() {
-            this.classList.remove('border-primary');
-        });
-    });
-});
-</script>
-<!--end::Custom Javascript-->
 @endsection

@@ -277,6 +277,16 @@
 
     <!--begin::Modals-->
     @include('layouts.common._modal-delete')
+    <!-- Edit/Create Modal for AJAX -->
+    <div class="modal fade" id="form-modal" tabindex="-1" aria-labelledby="formModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-xl modal-dialog-centered">
+            <div class="modal-content">
+                <div id="fmodal-content">
+                    <!-- AJAX content will be loaded here -->
+                </div>
+            </div>
+        </div>
+    </div>
     <!--end::Modals-->
 @endsection
 
@@ -290,76 +300,4 @@
     <script src="{{ asset('js/common.js') }}"></script>
     <script src="{{ asset('js/delete.js') }}"></script>
 
-    <script>
-        "use strict";
-
-        // Class definition
-        var KTStudentsList = function() {
-            // Define shared variables
-            var table = document.getElementById('kt_students_table');
-            var datatable;
-
-            // Private functions
-            var initStudentTable = function() {
-                // Init datatable --- more info on datatables: https://datatables.net/manual/
-                datatable = $(table).DataTable({
-                    "info": false,
-                    "order": [],
-                    "pageLength": 10,
-                    "lengthChange": false,
-                    'columnDefs': [{
-                            orderable: false,
-                            targets: 0
-                        }, // Disable ordering on column 0 (checkbox)
-                        {
-                            orderable: false,
-                            targets: 6
-                        }, // Disable ordering on column 6 (actions)
-                    ]
-                });
-            }
-
-            // Search functionality
-            var handleSearchDatatable = function() {
-                const filterSearch = document.querySelector('#kt_filter_search');
-                if (filterSearch) {
-                    filterSearch.addEventListener('keyup', function(e) {
-                        const searchValue = e.target.value;
-                        if (searchValue.length > 2 || searchValue.length === 0) {
-                            const url = new URL(window.location.href);
-                            if (searchValue.length === 0) {
-                                url.searchParams.delete('search');
-                            } else {
-                                url.searchParams.set('search', searchValue);
-                            }
-
-                            // Debounce the search
-                            clearTimeout(window.searchTimeout);
-                            window.searchTimeout = setTimeout(() => {
-                                window.location.href = url.toString();
-                            }, 500);
-                        }
-                    });
-                }
-            }
-
-            // Public methods
-            return {
-                init: function() {
-                    if (!table) {
-                        return;
-                    }
-
-                    initStudentTable();
-                    handleSearchDatatable();
-                }
-            }
-        }();
-
-        // On document ready
-        KTUtil.onDOMContentLoaded(function() {
-            KTStudentsList.init();
-        });
-    </script>
-    <!--end::Custom Javascript-->
-@endsection
+  @endsection
